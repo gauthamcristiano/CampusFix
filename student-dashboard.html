@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard | CampusFix</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f7fc;
+      color: #0a2540;
+    }
+    header {
+      background: #0a2540;
+      color: white;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    header h2 { margin: 0; }
+    header span { color: #00b4d8; }
+    header button {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    main {
+      max-width: 1100px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .welcome { margin-bottom: 28px; }
+    .welcome h1 { margin-bottom: 8px; }
+    .welcome p { color: #64748b; }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(10,37,64,.06);
+    }
+    h2 { margin-top: 0; }
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 17px 0 8px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #dbe3ed;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .submit {
+      margin-top: 20px;
+      padding: 14px 22px;
+      background: #005b60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .submit:disabled { opacity: .6; cursor: wait; }
+    .message { margin-top: 15px; font-weight: bold; }
+    .report {
+      border: 1px solid #e2e8f0;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #075985;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .muted { color: #64748b; font-size: 14px; }
+    @media(max-width:600px) {
+      header { padding: 18px 5%; }
+      main { margin-top: 22px; }
+      .card { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Campus<span>Fix</span> | Student Portal</h2>
+  <button id="logout">Logout</button>
+</header>
+
+<main>
+  <section class="welcome">
+    <h1>Welcome, Student 👋</h1>
+    <p>Report campus problems and track their progress in one place.</p>
+  </section>
+
+  <section class="card">
+    <h2>Submit a Complaint</h2>
+    <p class="muted">Tefi AI will inspect your complaint before forwarding it.</p>
+
+    <form id="complaintForm">
+      <label for="student">Your Name</label>
+      <input id="student" type="text" placeholder="Enter your name" required>
+
+      <label for="category">Complaint Category</label>
+      <select id="category" required>
+        <option value="">Select category</option>
+        <option>Water Supply</option>
+        <option>Electricity</option>
+        <option>Classroom</option>
+        <option>Hostel</option>
+        <option>Cleanliness</option>
+        <option>Transport</option>
+        <option>Other</option>
+      </select>
+
+      <label for="location">Location</label>
+      <input id="location" type="text" placeholder="Where is the problem?" required>
+
+      <label for="message">Describe the Problem</label>
+      <textarea id="message" placeholder="Explain the issue clearly..." required></textarea>
+
+      <button class="submit" id="submitBtn" type="submit">Submit Complaint →</button>
+      <p class="message" id="result"></p>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>My Complaints</h2>
+    <p class="muted">View the complaints submitted from this account.</p>
+    <div id="myReports">Loading complaints...</div>
+  </section>
+</main>
+
+<script>
+  const email = sessionStorage.getItem("campusfixStudent");
+
+  if (!email) {
+    window.location.href = "student-login.html";
+  }
+
+  const storageKey = "campusfix-demo-reports";
+
+  function getReports() {
+    return JSON.parse(localStorage.getItem(storageKey) || "[]");
+  }
+
+  function renderReports() {
+    const reports = getReports().filter(report =>
+      report.studentEmail === email
+    );
+
+    const container = document.getElementById("myReports");
+
+    if (!reports.length) {
+      container.innerHTML = '<p class="muted">You have not submitted any complaints yet.</p>';
+      return;
+    }
+
+    container.innerHTML = reports.slice().reverse().map(report => `
+      <div class="report">
+        <span class="badge">${report.decision || "Submitted"}</span>
+        <h3>${escapeHTML(report.category)}</h3>
+        <p>${escapeHTML(report.message)}</p>
+        <p class="muted">Location: ${escapeHTML(report.location)}</p>
+        <p class="muted">Priority: ${escapeHTML(report.priority || "Not assigned")}</p>
+        <p class="muted">Status: ${escapeHTML(report.status || "Submitted")}</p>
+        <p class="muted">Tefi: ${escapeHTML(report.reason || "Inspection completed")}</p>
+      </div>
+    `).join("");
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;"
+    })[char]);
+  }
+
+  document.getElementById("complaintForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const button = document.getElementById("submitBtn");
+    const result = document.getElementById("result");
+
+    button.disabled = true;
+    button.textContent = "Tefi AI is inspecting...";
+    result.textContent = "Please wait while Tefi AI checks your complaint.";
+
+    const report = {
+      student: document.getElementById("student").value.trim(),
+      studentEmail: email,
+      category: document.getElementById("category").value,
+      location: document.getElementById("location").value.trim(),
+      message: document.getElementById("message").value.trim()
+    };
+
+    try {
+      const response = await fetch("/api/inspect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(report)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Inspection failed.");
+      }
+
+      const savedReport = {
+        ...report,
+        ...data,
+        status: data.decision === "APPROVE" ? "Forwarded to Admin" :
+                data.decision === "ESCALATE" ? "Urgent Attention" : "Under Review",
+        createdAt: new Date().toISOString()
+      };
+
+      const reports = getReports();
+      reports.push(savedReport);
+      localStorage.setItem(storageKey, JSON.stringify(reports));
+
+      result.textContent = "✅ Tefi AI inspection completed! Decision: " + data.decision;
+      document.getElementById("complaintForm").reset();
+      renderReports();
+
+    } catch (error) {
+      result.textContent = "❌ " + error.message;
+    } finally {
+      button.disabled = false;
+      button.textContent = "Submit Complaint →";
+    }
+  });
+
+  document.getElementById("logout").addEventListener("click", () => {
+    sessionStorage.removeItem("campusfixStudent");
+    window.location.href = "student-login.html";
+  });
+
+  renderReports();
+</script>
+
+</body>
+</html>

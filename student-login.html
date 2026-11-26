@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login | CampusFix</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f7fc;
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      width: 90%;
+      max-width: 420px;
+      background: white;
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(10, 37, 64, 0.10);
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      color: #0a2540;
+      margin-bottom: 8px;
+    }
+
+    .logo span {
+      color: #00a6c7;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #0a2540;
+      margin-bottom: 8px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      border: 1px solid #dbe3ed;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #00a6c7;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 25px;
+      border: none;
+      border-radius: 9px;
+      background: #0a2540;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005b60;
+    }
+
+    .error {
+      color: #dc2626;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .demo {
+      margin-top: 25px;
+      padding: 14px;
+      background: #f0f9ff;
+      border-radius: 9px;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.8;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="logo">Campus<span>Fix</span></div>
+    <p class="subtitle">Your campus. Your voice. Your solution.</p>
+
+    <h2>Student Login</h2>
+    <p class="subtitle">Sign in to manage your campus complaints.</p>
+
+    <form id="loginForm">
+
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
+
+      <button type="submit">Login to Student Portal →</button>
+
+      <p class="error" id="error"></p>
+
+    </form>
+
+    <div class="demo">
+      <strong>Demo Student Account</strong><br>
+      Email: student@campusfix.demo<br>
+      Password: student123
+    </div>
+
+    <a href="index.html" class="back">← Back to CampusFix</a>
+
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const error = document.getElementById("error");
+
+      if (
+        email === "student@campusfix.demo" &&
+        password === "student123"
+      ) {
+        sessionStorage.setItem("campusfixStudent", email);
+        window.location.href = "student-dashboard.html";
+      } else {
+        error.textContent = "Invalid email or password. Please try again.";
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101d35">
+<title>CampusFix | Powered by Tefi AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#"><span class="logo">C</span><span><b>Campus<span>Fix</span></b><small>POWERED BY TEFI AI</small></span></a>
+  <nav id="navlinks"><a href="#how">How it works</a><a href="#report">Report an issue</a><button id="adminOpen" class="outline">Admin view ↗</button></nav>
+  <button class="hamb" id="hamb" aria-label="Open menu">☰</button>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <div class="eyebrow"><i></i> SMARTER CAMPUS. FASTER ACTION.</div>
+    <h1>A better campus<br><em>starts with being heard.</em></h1>
+    <p class="lead">Report campus problems in seconds. Tefi AI checks each submission and helps genuine issues reach the right people.</p>
+    <div class="actions"><a class="primary" href="#report">Report an issue <b>→</b></a><a class="plain" href="#how">See how it works</a></div>
+    <div class="proof"><span class="proof-icon">✓</span><span><b>Every report gets checked.</b><small>Clearer reports. Better campus response.</small></span></div>
+  </div>
+  <div class="visual">
+    <div class="ring r1"></div><div class="ring r2"></div>
+    <div class="agent-card">
+      <div class="agent-head"><span class="spark">✦</span><span><b>TEFI AI</b><small>Complaint intelligence agent</small></span><label>● ONLINE</label></div>
+      <small class="caption">LIVE INSPECTION PREVIEW</small>
+      <blockquote>“The water cooler near Block B is leaking.”</blockquote>
+      <div class="check"><span>Understanding context</span><b>Complete</b></div>
+      <div class="check"><span>Checking relevance</span><b>Complete</b></div>
+      <div class="check"><span>Assigning priority</span><b>Complete</b></div>
+      <div class="result"><strong>✓</strong><span><b>Genuine report identified</b><small>Illustrative preview · Demo mode</small></span><label>APPROVE</label></div>
+    </div>
+    <div class="float f1">✦ Context-aware AI</div><div class="float f2">● Transparent decisions</div>
+  </div>
+</section>
+<section class="ribbon"><span>01 &nbsp; Submit an issue</span><span>02 &nbsp; Tefi inspects it</span><span>03 &nbsp; The right action follows</span></section>
+<section class="section" id="how">
+  <div class="center"><div class="eyebrow">THE PROCESS</div><h2>From report to resolution.</h2><p>One simple workflow that helps students and campus teams stay connected.</p></div>
+  <div class="steps">
+    <article><small>01</small><div class="stepicon">✎</div><h3>Tell us what's wrong</h3><p>Describe the issue and mention where it is happening on campus.</p></article>
+    <article class="highlight"><small>02</small><div class="stepicon">✦</div><h3>Tefi checks the report</h3><p>Tefi evaluates relevance, intent, urgency and possible duplicate reports.</p></article>
+    <article><small>03</small><div class="stepicon">↗</div><h3>It reaches the right team</h3><p>Valid reports enter the admin queue. Unclear or suspicious reports are handled safely.</p></article>
+  </div>
+</section>
+<section class="report-area" id="report">
+  <div class="intro"><div class="eyebrow">STUDENT PORTAL</div><h2>What's happening<br>on your campus?</h2><p>Your report helps make campus life better. Share the details and Tefi will inspect your submission.</p><div class="privacy"><b>⌑ &nbsp; Your report matters</b><small>Do not include passwords or unnecessary personal information.</small></div></div>
+  <form id="reportForm" class="form">
+    <div class="formtitle"><span><small>NEW SUBMISSION</small><h3>Report an issue</h3></span><small>* Required</small></div>
+    <label for="student">Your name *</label><input id="student" required maxlength="70" placeholder="Enter your name">
+    <div class="row"><div><label for="category">Issue category *</label><select id="category" required><option value="">Select category</option><option>Infrastructure</option><option>Electrical</option><option>Water and plumbing</option><option>Cleanliness</option><option>Wi-Fi and technology</option><option>Safety</option><option>Other</option></select></div><div><label for="location">Campus location *</label><input id="location" required maxlength="100" placeholder="e.g. Block B, Room 204"></div></div>
+    <label for="message">Describe the issue *</label><textarea id="message" required minlength="12" maxlength="1200" rows="5" placeholder="Explain what happened, where it happened, and when you noticed it..."></textarea>
+    <div class="formfoot"><small id="count">0 / 1200</small><button class="primary" type="submit">Submit for Tefi inspection →</button></div>
+    <p class="disclaimer">Prototype mode: submissions are saved only in this browser. Live AI and secure server processing are not connected yet.</p>
+  </form>
+</section>
+<section class="tefi-section">
+  <div class="tefi-symbol">✦</div><div><div class="eyebrow">MEET YOUR AI AGENT</div><h2>Not just a chatbot.<br><em>An agent that takes action.</em></h2><p>Tefi inspects each report, makes a structured decision and routes it through a controlled workflow. Potential emergencies are escalated, not silently rejected.</p></div>
+  <div class="decisions"><p>✓ &nbsp; <b>Approve</b><small> Relevant reports move to the admin queue.</small></p><p>? &nbsp; <b>Clarify</b><small> Ask students for missing details.</small></p><p>⌁ &nbsp; <b>Quarantine</b><small> Keep obvious spam out of the main queue.</small></p><p>! &nbsp; <b>Escalate</b><small> Flag potential safety risks urgently.</small></p></div>
+</section>
+<section class="admin" id="admin" hidden>
+  <div class="admin-head"><div><div class="eyebrow">CAMPUS OPERATIONS</div><h2>Admin overview</h2><p>Local prototype dashboard · Not secured for real users</p></div><button id="adminClose" class="outline">Back to website</button></div>
+  <div class="metrics"><article><small>Total submissions</small><b id="total">0</b></article><article><small>Approved queue</small><b id="approved">0</b></article><article><small>Needs review</small><b id="review">0</b></article><article><small>Urgent alerts</small><b id="urgent">0</b></article></div>
+  <div class="queue"><h3>Complaint queue <small>DEMO DATA</small></h3><div id="list" class="list">No submissions yet. Try the student report form.</div></div>
+</section>
+</main>
+<footer><a class="brand" href="#"><span class="logo">C</span><span><b>Campus<span>Fix</span></b><small>POWERED BY TEFI AI</small></span></a><span>Built to make everyday campus life better.</span><span>© 2026 CampusFix · Hackathon prototype</span></footer>
+<div id="toast" role="status" class="toast"></div>
+<script src="app.js"></script>
+</body></html>

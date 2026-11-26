@@ -1,0 +1,12 @@
+{
+  "name": "campusfix",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@google/genai": "^3.6.1"
+  }
+}
